@@ -1,13 +1,14 @@
 import discord
 from discord.ext import commands
 import os
-
+name=input("User Name:")
 bot = commands.Bot(command_prefix='>')
 
 
 @bot.event
 async def on_connect():
-    print("Max Ai System online 😀")
+	 print("Max System Online Logining as "+name)
+
 
 
 @bot.command()
@@ -56,4 +57,3 @@ async def Max_Say_Hello_World(ctx):
 my_secret = os.environ['Token']
 
 bot.run(my_secret)
-
