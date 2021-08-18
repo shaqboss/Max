@@ -10,6 +10,8 @@ discord = "^1.7.3"
 requests = "^2.26.0"
 json2json = "^0.1.0"
 heroku = "^0.1.4"
+telebot = "^0.0.4"
+pyTelegramBotAPI = "^3.8.2"
 
 [tool.poetry.dev-dependencies]
 
