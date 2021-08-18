@@ -68,6 +68,6 @@ async def Max_Are_You_A_Bot(ctx):
 	await ctx.send("No am a Alien 😂😂😂 ")
 
 
-my_secret = os.environ['Token']
+my_secret = ('ODc2MTQ3Mjg4MTQ0MjE2MTU0.YRf1vw.vCdFkReuPmq0c7vwc6dHQzlF5BM')
 
 bot.run(my_secret)
