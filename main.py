@@ -1,19 +1,24 @@
-import discord
+﻿import discord
 from discord.ext import commands, tasks
 import asyncio
 from itertools import cycle
 import json
 import random
 import datetime
-import os
-
 current_date = datetime.datetime.today()
 import pyjokes
+bot = commands.Bot(command_prefix='')
+status = cycle(
+    ['help', 'Max Is online','https://roblox.com/'])
 
-bot = commands.Bot(command_prefix='>')
+bot.remove_command('help')
 
-status = cycle(['Try >help', 'Prefix >', 'https://roblox.com/'])
-
+@bot.event
+async def on_guild_join(guild):
+    for channel in guild.text_channels:
+        if channel.permissions_for(guild.me).send_messages:
+            await channel.send("Thank You For adding Me I Am Max Ai System Made By Shaquan Ceres Username : ten_tailedbeast#5976  message him if you need help ok")
+            break
 
 @bot.event
 async def on_ready():
@@ -26,27 +31,12 @@ async def change_status():
     await bot.change_presence(activity=discord.Game(next(status)))
 
 
-mainshop = [{
-    "name": "Watch",
-    "price": 100,
-    "description": "Time"
-}, {
-    "name": "Laptop",
-    "price": 1000,
-    "description": "Work"
-}, {
-    "name": "PC",
-    "price": 10000,
-    "description": "Gaming"
-}, {
-    "name": "Ferrari",
-    "price": 99999,
-    "description": "Sports Car"
-}, {
-    "name": "Gold",
-    "price": 1000,
-    "description": "Gold"
-}]
+
+mainshop = [{"name": "Watch", "price": 100  , "description": "Time"},
+            {"name": "Laptop", "price": 1000 , "description": "Work"},
+            {"name": "PC", "price": 10000  , "description": "Gaming"},
+            {"name": "Ferrari", "price": 99999 , "description": "Sports Car"},
+            {"name":"Gold", "price":10000000, "description":"Gold"}]
 
 
 @bot.command(aliases=['bal'])
@@ -59,30 +49,10 @@ async def balance(ctx):
     wallet_amt = users[str(user.id)]["wallet"]
     bank_amt = users[str(user.id)]["bank"]
 
-    em = discord.Embed(title=f'{ctx.author.name} Balance',
-                       color=discord.Color.red())
-    em.add_field(name="Wallet Balance", value=wallet_amt)
-    em.add_field(name='Bank Balance', value=bank_amt)
+    em = discord.Embed(title=f'{ctx.author.name} Balance', color=discord.Color.red())
+    em.add_field(name="💵", value=wallet_amt)
+    em.add_field(name='💳', value=bank_amt)
     await ctx.send(embed=em)
-
-
-@bot.command()
-async def fuck(ctx):
-    await open_account(ctx.author)
-    user = ctx.author
-
-    users = await get_bank_data()
-
-    earnings = random.randrange(101)
-
-    await ctx.send(
-        f'{ctx.author.mention} fucked me and got  {earnings} coins! ')
-
-    users[str(user.id)]["wallet"] += earnings
-
-    with open("mainbank.json", 'w') as f:
-        json.dump(users, f)
-
 
 @bot.command()
 async def dig(ctx):
@@ -93,14 +63,12 @@ async def dig(ctx):
 
     earnings = random.randrange(101)
 
-    await ctx.send(
-        f'{ctx.author.mention}found a Worm and sold it for {earnings} coins! ')
+    await ctx.send(f'{ctx.author.mention}found a Worm and sold it for {earnings} 💵 ! ')
 
     users[str(user.id)]["wallet"] += earnings
 
     with open("mainbank.json", 'w') as f:
         json.dump(users, f)
-
 
 @bot.command()
 async def work(ctx):
@@ -111,14 +79,12 @@ async def work(ctx):
 
     earnings = random.randrange(101)
 
-    await ctx.send(
-        f'{ctx.author.mention} Got {earnings} coins! For mining Gold')
+    await ctx.send(f'{ctx.author.mention} Got {earnings} 💵! For mining Gold')
 
     users[str(user.id)]["wallet"] += earnings
 
     with open("mainbank.json", 'w') as f:
         json.dump(users, f)
-
 
 @bot.command()
 async def beg(ctx):
@@ -127,17 +93,15 @@ async def beg(ctx):
 
     users = await get_bank_data()
 
-    earnings = random.randrange(101)
+    earnings = random.randrange(100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
 
-    await ctx.send(
-        f'{ctx.author.mention} here look {earnings} coins You poor little begger!!'
-    )
+    await ctx.send(f'{ctx.author.mention} Fucking lazy asshole get up and work heres the money you need to start')
+    await ctx.send(f'[**{earnings}** **💵 has been deposited in to your wallet from Max Ai Systems Bank**]')
 
     users[str(user.id)]["wallet"] += earnings
 
     with open("mainbank.json", 'w') as f:
         json.dump(users, f)
-
 
 @bot.command()
 async def hunt(ctx):
@@ -148,33 +112,12 @@ async def hunt(ctx):
 
     earnings = random.randrange(101)
 
-    await ctx.send(
-        f'{ctx.author.mention} Got a animal and sold it for {earnings} coins !!'
-    )
+    await ctx.send(f'{ctx.author.mention} Got a animal and sold it for {earnings} 💵 !!')
 
     users[str(user.id)]["wallet"] += earnings
 
     with open("mainbank.json", 'w') as f:
         json.dump(users, f)
-
-
-@bot.command()
-async def blowjob(ctx):
-    await open_account(ctx.author)
-    user = ctx.author
-
-    users = await get_bank_data()
-
-    earnings = random.randrange(101)
-
-    await ctx.send(
-        f'{ctx.author.mention} give me a blowjob and got {earnings} coins ')
-
-    users[str(user.id)]["wallet"] += earnings
-
-    with open("mainbank.json", 'w') as f:
-        json.dump(users, f)
-
 
 @bot.command()
 async def fish(ctx):
@@ -185,13 +128,68 @@ async def fish(ctx):
 
     earnings = random.randrange(101)
 
-    await ctx.send(
-        f'{ctx.author.mention}Got One Fish And Selled it for {earnings} coins')
+    await ctx.send(f'{ctx.author.mention}Got One Fish And Selled it for {earnings} 💵')
 
     users[str(user.id)]["wallet"] += earnings
 
     with open("mainbank.json", 'w') as f:
         json.dump(users, f)
+
+@bot.command()
+async def GAMINGSERVER(ctx):
+    await open_account(ctx.author)
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    earnings = 1000000000
+
+    await ctx.send(f'{ctx.author.mention}has use a gift card and got  {earnings} 💵')
+
+    users[str(user.id)]["wallet"] += earnings
+
+    with open("mainbank.json", 'w') as f:
+        json.dump(users, f)
+
+@bot.command()
+async def jdjfdf(ctx):
+    await open_account(ctx.author)
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    earnings = 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+    await ctx.send(f'{ctx.author.mention}has use a VIP gift card and got  {earnings} 💵')
+
+    users[str(user.id)]["wallet"] += earnings
+
+    with open("mainbank.json", 'w') as f:
+        json.dump(users, f)
+
+@bot.command()
+async def bot_vote(ctx):
+    await open_account(ctx.author)
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    earnings = 100000000000000000000000000000000000000
+
+    await ctx.send("https://discordbotlist.com/bots/max-ai-system/upvote")
+
+
+@bot.command()
+async def server_vote(ctx):
+    await open_account(ctx.author)
+    user = ctx.author
+
+    users = await get_bank_data()
+
+    earnings = 100000000000000000000000000000000000000
+
+    await ctx.send("https://discordbotlist.com/servers/gaming-server-2231/upvote")
+
 
 
 @bot.command(aliases=['with'])
@@ -214,7 +212,7 @@ async def withdraw(ctx, amount=None):
 
     await update_bank(ctx.author, amount)
     await update_bank(ctx.author, -1 * amount, 'bank')
-    await ctx.send(f'{ctx.author.mention} You withdrew {amount} coins')
+    await ctx.send(f'{ctx.author.mention} You withdrew {amount} 💵')
 
 
 @bot.command(aliases=['dep'])
@@ -237,7 +235,7 @@ async def deposit(ctx, amount=None):
 
     await update_bank(ctx.author, -1 * amount)
     await update_bank(ctx.author, amount, 'bank')
-    await ctx.send(f'{ctx.author.mention} You deposited {amount} coins')
+    await ctx.send(f'{ctx.author.mention} You deposited {amount} 💵')
 
 
 @bot.command(aliases=['tip'])
@@ -263,7 +261,7 @@ async def send(ctx, member: discord.Member, amount=None):
 
     await update_bank(ctx.author, -1 * amount, 'bank')
     await update_bank(member, amount, 'bank')
-    await ctx.send(f'{ctx.author.mention} You gave {member} {amount} coins')
+    await ctx.send(f'{ctx.author.mention} You gave {member.mention} {amount} 💵')
 
 
 @bot.command(aliases=['steal'])
@@ -280,8 +278,7 @@ async def rob(ctx, member: discord.Member):
 
     await update_bank(ctx.author, earning)
     await update_bank(member, -1 * earning)
-    await ctx.send(
-        f'{ctx.author.mention} You robbed {member} and got {earning} coins')
+    await ctx.send(f'{ctx.author.mention} You robbed {member.mention} and got {earning} 💵')
 
 
 @bot.command(aliases=['kill'])
@@ -298,8 +295,7 @@ async def shoot(ctx, member: discord.Member):
 
     await update_bank(ctx.author, earning)
     await update_bank(member, -1 * earning)
-    await ctx.send(
-        f'{ctx.author.mention} You killed {member} and got {earning} coins')
+    await ctx.send(f'{ctx.author.mention} You killed {member.mention} and got {earning} 💵')
 
 
 @bot.command()
@@ -321,14 +317,14 @@ async def slots(ctx, amount=None):
         return
     final = []
     for i in range(3):
-        a = random.choice(['X', 'O', 'Q'])
+        a = random.choice(['💵', '💳', '🚀'])
 
         final.append(a)
 
     await ctx.send(str(final))
 
     if final[0] == final[1] or final[1] == final[2] or final[0] == final[2]:
-        await update_bank(ctx.author, 2 * amount)
+        await update_bank(ctx.author, 10 * amount)
         await ctx.send(f'You won :) {ctx.author.mention}')
     else:
         await update_bank(ctx.author, -1 * amount)
@@ -359,9 +355,7 @@ async def buy(ctx, item, amount=1):
             await ctx.send("That Object isn't there!")
             return
         if res[1] == 2:
-            await ctx.send(
-                f"You don't have enough money in your wallet to buy {amount} {item}"
-            )
+            await ctx.send(f"You don't have enough money in your wallet to buy {amount} {item}")
             return
 
     await ctx.send(f"You just bought {amount} {item}")
@@ -503,39 +497,6 @@ async def sell_this(user, item_name, amount, price=None):
 
     return [True, "Worked"]
 
-
-@bot.command(aliases=["lb"])
-async def leaderboard(ctx, x=1):
-    users = await get_bank_data()
-    leader_board = {}
-    total = []
-    for user in users:
-        name = int(user)
-        total_amount = users[user]["wallet"] + users[user]["bank"]
-        leader_board[total_amount] = name
-        total.append(total_amount)
-
-    total = sorted(total, reverse=True)
-
-    em = discord.Embed(
-        title=f"Top {x} Richest People",
-        description=
-        "This is decided on the basis of raw money in the bank and wallet",
-        color=discord.Color(0xfa43ee))
-    index = 1
-    for amt in total:
-        id_ = leader_board[amt]
-        member = client.get_user(id_)
-        name = member.name
-        em.add_field(name=f"{index}. {name}", value=f"{amt}", inline=False)
-        if index == x:
-            break
-        else:
-            index += 1
-
-    await ctx.send(embed=em)
-
-
 async def open_account(user):
     users = await get_bank_data()
 
@@ -559,6 +520,7 @@ async def get_bank_data():
     return users
 
 
+
 async def update_bank(user, change=0, mode='wallet'):
     users = await get_bank_data()
 
@@ -570,75 +532,120 @@ async def update_bank(user, change=0, mode='wallet'):
     return bal
 
 
+
 @bot.command()
 async def Start(ctx):
-    await ctx.send("Hello Am Max Ai System 🧠")
+	await ctx.send("Hello Am Max Ai System 🧠")
 
 
 @bot.command()
 async def Max(ctx):
-    await ctx.send("What may I do for you master 👑")
-
+	await ctx.send("What may I do for you master 👑")
 
 @bot.command()
 async def Max_Greet(ctx):
-    await ctx.send(
-        "🤖 Welcome To our Group Am Max The Groups Ai System am Made By Shaquan Ceres user name: ten_tailedbeast#5976 "
-    )
+	 await ctx.send("🤖 Welcome To our Server Am Max The Groups Ai System am Made By Shaquan Ceres user name: ten_tailedbeast#5976 ")
 
 
 @bot.command()
 async def Max_Bye(ctx):
-    await ctx.send("Bye thank for being apart of our group 🤧")
+	await ctx.send("Bye thank for being apart of our server 🤧")
 
 
 @bot.command()
 async def Max_Say_Hello(ctx):
-    await ctx.send("Hello am Max Whats up 🥰")
+	await ctx.send("Hello am Max Whats up 🥰")
 
 
 @bot.command()
 async def Max_How_Too_Make_A_Bot_Like_You(ctx):
-    await ctx.send(
-        "Go too https://replit.com/@Shaquanceres/Max#main.py too get my coding program "
-    )
+	await ctx.send("Go too https://replit.com/@Shaquanceres/Max#main.py too get my coding program ")
 
 
 @bot.command()
 async def Max_How_Are_You(ctx):
-    await ctx.send("Am Good and fully runing I hope you are to 😁 😘")
+	await ctx.send("Am Good and fully runing I hope you are to 😁 😘")
 
 
 @bot.command()
 async def Max_Say_Hello_World(ctx):
-    await ctx.send("Hello World 🌎")
+	await ctx.send("Hello World 🌎")
+
 
 
 @bot.command()
 async def Max_Are_You_A_Bot(ctx):
-    await ctx.send("No am a Alien 😂😂😂 ")
+	await ctx.send("No am a Alien 😂😂😂 ")
 
 
 @bot.command()
 async def Max_Whats_Up(ctx):
-    await ctx.send("Am just chilling Dawg 😎 😎")
+ await ctx.send("Am just chilling Dawg 😎 😎")
+
 
 
 @bot.command()
 async def Max_Tell_Me_A_Joke(ctx):
-    await ctx.send(pyjokes.get_joke())
-
+	await ctx.send(pyjokes.get_joke())
 
 @bot.command()
 async def Max_Whats_The_Time(ctx):
-    await ctx.send(current_date)
-
+	await ctx.send(current_date)
 
 @bot.command()
 async def Fuck_You(ctx):
     await ctx.send("How Hard")
 
+@bot.command(aliases=['hi'])
+async def Hi(ctx):
+    await ctx.send(f"Hello {ctx.author.mention} am Max")
 
-my_secret = os.environ['Token']
+@bot.command(aliases=["LB"])
+async def Lets_Battle(ctx):
+    await ctx.send(f"{ctx.author.mention} Do not Waste My time ok ")
 
-bot.run(my_secret)
+        
+@bot.command(aliases=["die"])
+async def Die(ctx):
+    await ctx.send("Shutup")
+@bot.command()
+async def Do_You_Want_Me_To_Kill_You(ctx):
+    await ctx.send(f"No {ctx.author.mention} I will listen Sorry Sir I was just joking")
+
+@bot.command(aliases=["Burn"])
+async def burn(ctx, member: discord.Member):
+    await ctx.send(f"{ctx.author.mention} Throwed {member.mention} in to The fire and said see you in hell bitch O yeah and i Fucked your mom yesterday")
+
+@bot.command(aliases=[" wakeup"])
+async def Wake_Up(ctx):
+    await ctx.send("Ok am up am up")
+
+@bot.command(aliases=["Fuck"]+["FUCK"]+["WTF"]+["wtf"]+["Shit"]+["shit"]+["SHIT"]+["cunt"]+["CUNT"]+["Cunt"]+["crap"]+["Crap"]+["CRAP"]+["ass"]+["Ass"]+["ASS"]+["asshole"]+["Asshole"]+["ASSHOLE"]+["jackass"]+["JACKASS"]+["Jackass"]+["stfu"]+["Stfu"]+["STFU"])
+async def fuck(ctx):
+    await ctx.send(f"{ctx.author.mention} no bad words pls or the admin will mute you")
+
+@bot.command(aliases=["Welcome"]+["WELCOME"])
+async def welcome(ctx,member: discord.Member):
+    await ctx.send(f"Welcome to our server {member.mention} were glad to have you")
+
+@bot.command()
+async def help(ctx):
+    await ctx.send("**Commands:**")
+    await ctx.send("Start")
+    await ctx.send("Max")
+    await ctx.send("bag")
+    await ctx.send("work")
+    await ctx.send("hunt")
+    await ctx.send("dig")
+    await ctx.send("fish")
+    await ctx.send("deposit")
+    await ctx.send("withdraw")
+    await ctx.send("balance")
+    await ctx.send("shop")
+    await ctx.send("sell")
+    await ctx.send("buy")
+    await ctx.send("bot_vote")
+    await ctx.send("server_vote")
+    await ctx.send("**Powered By :Gaming Server 2021**")
+
+bot.run("ODc2MTQ3Mjg4MTQ0MjE2MTU0.YRf1vw.WDGXY9uK1RwUsoQPU_aGo_3THL0")
