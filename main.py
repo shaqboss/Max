@@ -2,9 +2,11 @@
 from discord.ext import commands, tasks
 import asyncio
 from itertools import cycle
+import os
 import json
 import random
 import datetime
+
 current_date = datetime.datetime.today()
 import pyjokes
 bot = commands.Bot(command_prefix='')
@@ -648,4 +650,5 @@ async def help(ctx):
     await ctx.send("server_vote")
     await ctx.send("**Powered By :Gaming Server 2021**")
 
-bot.run("ODc2MTQ3Mjg4MTQ0MjE2MTU0.YRf1vw.WDGXY9uK1RwUsoQPU_aGo_3THL0")
+my_secret = os.environ['Token']
+bot.run("my_secret")
